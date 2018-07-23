@@ -32,7 +32,6 @@ public class TreeNavigation {
         Node n3 = new Node("9", new Node("4"));
         Node n4 = new Node("5", null, n3);
         Node n = new Node("2", n2, n4);
-
         n.printTree(n,spacer);
     }
 }

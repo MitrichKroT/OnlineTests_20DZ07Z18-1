@@ -27,5 +27,4 @@ public class Calculator {
                     String.format("Operator '%s' not supported", operator));
         }
     }
-
 }

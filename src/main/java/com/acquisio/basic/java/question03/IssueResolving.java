@@ -22,5 +22,4 @@ public class IssueResolving {
             throw new IllegalArgumentException(n + " is out of range");
         return (1 > n) ? 1 : factorial(n - 1) * n;
     }
-
 }

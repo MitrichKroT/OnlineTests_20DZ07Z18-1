@@ -59,7 +59,6 @@ public class Aggregation {
 
             ResultSet resultSet = conn.createStatement().executeQuery(query);
             H2DBUtil.displayResultSet(resultSet);
-
         }
     }
 }
