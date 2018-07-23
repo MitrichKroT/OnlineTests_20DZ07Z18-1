@@ -18,6 +18,7 @@ public class Employee {
     @Column(name = "email")
     private String email;
     private int salary;
+    private String url;
 
     Employee() {
         // JPA only
@@ -27,7 +28,8 @@ public class Employee {
         this.firstName = firstName;
         this.lastName = lastName;
         this.salary = salary;
-        setEmail(email);
+        this.email =email;
+        this.url="https://www.gravatar.com/avatar/"+md5Hex(email);
     }
 
     public Long getId() {
@@ -68,7 +70,15 @@ public class Employee {
 
     public void setEmail(String email) {
 
-        this.email = md5Hex(email);
+        this.email =email;
+    }
+    public String getUrl() {
+
+        return this.url;
+    }
+    public void setUrl(String email) {
+
+        this.url="https://www.gravatar.com/avatar/" + md5Hex(email);
     }
 
     public static String hex(byte[] array) {
