@@ -48,9 +48,14 @@ public class Aggregation {
 //            H2DBUtil.displayTableRows(conn, "employees_projects");
             // End : For consultation only, can be removed
 
-            // TODO: Insert query here
             // See requirement in this class javadoc
-            String query = "select 1 as dummyValue from dual";
+            String query = "\n" +
+                    "SELECT\n" +
+                    "PRJ.title as ProjectTitle,\n" +
+                    "COUNT(EMP.employee_id) as NumberOfEmployees\n" +
+                    "FROM projects AS PRJ, employees_projects as EMP \n" +
+                    "WHERE  PRJ.id=EMP.project_id\n" +
+                    "GROUP BY PRJ.title\n";
 
             ResultSet resultSet = conn.createStatement().executeQuery(query);
             H2DBUtil.displayResultSet(resultSet);

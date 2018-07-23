@@ -1,5 +1,7 @@
 package com.acquisio.basic.java.question03;
 
+import org.w3c.dom.ranges.RangeException;
+
 /**
  * QUESTION 04: StackOverflow
  * This program crashes after throwing StackOverflowError exception:
@@ -10,14 +12,15 @@ package com.acquisio.basic.java.question03;
 public class IssueResolving {
     public static void main(String[] args) {
         IssueResolving instance = new IssueResolving();
-        System.out.println(instance.factorial(7));
+        System.out.println(instance.factorial(20));
     }
 
-    int factorial(int n) {
-        // TODO: Fix code here.
-        int result = 0;
-        result = factorial(n - 1) * n;
-        return result;
+    long factorial(int n) {
+        long result = 0;
+        System.out.println(n);
+        if ((n < 0) || (n > 20))
+            throw new IllegalArgumentException(n + " is out of range");
+        return (1 > n) ? 1 : factorial(n - 1) * n;
     }
 
 }

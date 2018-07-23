@@ -42,57 +42,8 @@ package com.acquisio.basic.java.question05;
  * legendary item and as such its Quality is 80 and it never alters.
  * <p>
  * IMPORTANT: Add all missing javadoc that you think is necessary.
- * <p>
- * <p>
- * =====================================================================================================
- * <p>
- * <p>
- * ======================================
- * Spécification des requis (fr)
- * ======================================
- * Bonjour et bienvenue dans l'équipe.
- * <p>
- * Comme vous le savez, notre petite taverne située à proximité d'une cité importante est dirigée
- * par l'amicale aubergiste Allison. Nous achetons et vendons uniquement les meilleurs produits.
- * Malheureusement, la qualité de nos marchandises se dégrade constamment à l'approche de leur date de péremption.
- * Un système a été mis en place pour mettre à jour notre inventaire. Il a été développé par Leeroy,
- * une personne pleine de bon sens qui est parti pour de nouvelles aventures.
- * Votre mission est d'ajouter une nouvelle fonctionnalité à notre système pour que nous puissions commencer à vendre
- * un nouveau type de produit. Mais d'abord, laissez-moi vous présenter notre système :
- * <p>
- * - Tous les éléments ont une valeur sellIn qui désigne le nombre de jours restant pour vendre l'article.
- * - Tous les articles ont une valeur quality qui dénote combien l'article est précieux.
- * - A la fin de chaque journée, notre système diminue ces deux valeurs pour chaque produit.
- * <p>
- * Plutôt simple, non ? Attendez, ça devient intéressant :
- * <p>
- * - Une fois que la date de péremption est passée, la qualité se dégrade deux fois plus rapidement.
- * - La qualité (quality) d'un produit ne peut jamais être négative.
- * - "Aged Brie" augmente sa qualité (quality) plus le temps passe.
- * - La qualité d'un produit n'est jamais de plus de 50.
- * - "Sulfuras", étant un objet légendaire, n'a pas de date de péremption et ne perd jamais en qualité (quality)
- * - "Backstage passes", comme le "Aged Brie", augmente sa qualité (quality) plus le temps passe (sellIn) ;
- * La qualité augmente de 2 quand il reste 10 jours ou moins et de 3 quand il reste 5 jours ou moins,
- * mais la qualité tombe à 0 après le concert.
- * <p>
- * Nous avons récemment signé un partenariat avec un fournisseur de produit invoqué ("Conjured").
- * Cela nécessite une mise à jour de notre système :
- * <p>
- * - les éléments "Conjured" voient leur qualité se dégrader de deux fois plus vite que les objets normaux.
- * <p>
- * Vous pouvez faire les changements que vous voulez à la méthode updateQuality et ajouter autant de code
- * que vous voulez, tant que tout fonctionne correctement. Cependant, nous devons vous prévenir, ne devez
- * modifier en aucun cas la classe Item ou ses propriétés car cette classe appartient au gobelin de l'étage
- * et il rentrera dans du rage instantanée et vous tuera sans délai : il ne croit pas dans le partage du code.
- * (Vous pouvez ajouter une méthode updateQuality et des propriétés statiques dans la classe Item si vous voulez,
- * nous vous couvrirons)
- * <p>
- * Juste une précision, un produit ne peut jamais voir sa qualité augmenter au-dessus de 50,
- * cependant "Sulfuras" est un objet légendaire et comme tel sa qualité est de 80 et il ne change jamais.
- * <p>
- * IMPORTANT: Ajouter toute la javadoc et les test unitaires que vous jugez nécessaire.
  */
-public class Refactoring {
+ public class Refactoring {
     Item[] items;
 
     public Refactoring(Item[] items) {
@@ -150,5 +101,101 @@ public class Refactoring {
                 }
             }
         }
+    }
+    public void updateQualityNew() {
+        for (Item tmp: items) {
+            tmp.updateQuality();
+        }
+    }
+    public static void main(String[] args) {
+        /*FOR TESTING ONLY*/
+        Item agedBrieOld = new Item("Aged Brie", 10, 40);
+        Item itemOld = new Item("item 1", 10, 40);
+        Item[] itemsOld = {agedBrieOld, itemOld};
+        Refactoring refactoringOld = new Refactoring(itemsOld);
+        System.out.println(agedBrieOld);
+        System.out.println(itemOld);
+        refactoringOld.updateQuality();
+        System.out.println(agedBrieOld);
+        System.out.println(itemOld);
+        System.out.println("====================================================");
+        Item agedBrieNew = new AgedBrie("Aged Brie", 10, 40);
+        Item itemNew = new Item("item 1", 10, 40);
+        Item[] itemsNew = {agedBrieNew, itemNew};
+        Refactoring refactoringNew = new Refactoring(itemsNew);
+        System.out.println(agedBrieNew);
+        System.out.println(itemNew);
+        refactoringNew.updateQualityNew();
+        System.out.println(agedBrieNew);
+        System.out.println(itemNew);
+
+        System.out.println("====================================================");
+        System.out.println("====================================================");
+
+        Item SurfurasOld = new Item("Surfuras", 10, 40);
+        Item itemSurfurasOld = new Item("item 1", 10, 40);
+        Item[] itemsSurfurasOld = {SurfurasOld, itemSurfurasOld};
+        Refactoring refactoringSurOld = new Refactoring(itemsSurfurasOld);
+        System.out.println(SurfurasOld);
+        System.out.println(itemSurfurasOld);
+        refactoringSurOld.updateQuality();
+        System.out.println(SurfurasOld);
+        System.out.println(itemSurfurasOld);
+        System.out.println("====================================================");
+        Item SurfurasNew = new Sulfuras("Surfuras", 10, 40);
+        Item itemSurNew = new Item("item 1", 10, 40);
+        Item[] itemSSurNew = {SurfurasNew, itemSurNew};
+        Refactoring refactoringSurfurasNew = new Refactoring(itemSSurNew);
+        System.out.println(SurfurasNew);
+        System.out.println(itemSurNew);
+        refactoringSurfurasNew.updateQualityNew();
+        System.out.println(SurfurasNew);
+        System.out.println(itemSurNew);
+
+        System.out.println("====================================================");
+        System.out.println("====================================================");
+
+        Item BackstageOld = new Item("Backstage", 12, 55);
+        Item itemBackstageOld = new Item("item 1", 12, 55);
+        Item[] itemSBackstageOld = {BackstageOld, itemBackstageOld};
+        Refactoring refactoringBackstageOld = new Refactoring(itemSBackstageOld);
+        System.out.println(BackstageOld);
+        System.out.println(itemBackstageOld);
+        refactoringBackstageOld.updateQuality();
+        System.out.println(BackstageOld);
+        System.out.println(itemBackstageOld);
+        System.out.println("====================================================");
+        Item BackstageNew = new Sulfuras("Backstage", 12, 55);
+        Item itemBackstageNew = new Item("item 1", 12, 55);
+        Item[] itemSBackstageNew = {BackstageNew, itemBackstageNew};
+        Refactoring refactoringBackstageNew = new Refactoring(itemSBackstageNew);
+        System.out.println(BackstageNew);
+        System.out.println(itemBackstageNew);
+        refactoringBackstageNew.updateQualityNew();
+        System.out.println(BackstageNew);
+        System.out.println(itemBackstageNew);
+
+        System.out.println("====================================================");
+        System.out.println("====================================================");
+
+        Item ConjuredOld = new Item("Conjured", 12, 55);
+        Item itemConjuredOld = new Item("item 1", 12, 55);
+        Item[] itemSConjuredOld = {ConjuredOld, itemConjuredOld};
+        Refactoring refactoringConjuredOld = new Refactoring(itemSConjuredOld);
+        System.out.println(ConjuredOld);
+        System.out.println(itemConjuredOld);
+        refactoringConjuredOld.updateQuality();
+        System.out.println(ConjuredOld);
+        System.out.println(itemConjuredOld);
+        System.out.println("====================================================");
+        Item ConjuredNew = new Sulfuras("Conjured", 12, 55);
+        Item itemConjuredNew = new Item("item 1", 12, 55);
+        Item[] itemSConjuredNew = {ConjuredNew, itemConjuredNew};
+        Refactoring refactoringConjuredNew = new Refactoring(itemSConjuredNew);
+        System.out.println(ConjuredNew);
+        System.out.println(itemConjuredNew);
+        refactoringConjuredNew.updateQualityNew();
+        System.out.println(ConjuredNew);
+        System.out.println(itemConjuredNew);
     }
 }

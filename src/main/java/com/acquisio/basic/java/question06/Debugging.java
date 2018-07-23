@@ -2,6 +2,7 @@ package com.acquisio.basic.java.question06;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -20,16 +21,15 @@ public class Debugging {
     }
 
     Integer[] removeEvenNumbers(Integer ... values) {
-        // TODO: Fix code here.
-
         List<Integer> integers = new ArrayList<>(Arrays.asList(values));
-
-        for (Integer i : integers) {
-            if (i % 2 == 0) { // remove even numbers
-                integers.remove(i);
+        Iterator<Integer> iterator = integers.iterator();
+        while (iterator.hasNext()) {
+            Integer number = iterator.next();
+            if (number % 2 == 0) {
+                System.out.println("Even Number will be removed: " + number);
+                iterator.remove();
             }
         }
-
         return integers.toArray(new Integer[integers.size()]);
     }
 }

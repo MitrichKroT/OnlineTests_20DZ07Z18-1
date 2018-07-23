@@ -1,9 +1,18 @@
 package com.acquisio.basic.java.question08;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * QUESTION 09: Lambdas (https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html)
@@ -33,7 +42,33 @@ public class Lambdas {
     }
 
     void convertCarts(File input, File output) throws IOException {
-        // TODO: Insert your code here.
-    }
+        List<User> users = new ArrayList<>();
+        Scanner partscan=new Scanner(input);
+        try {
+            BufferedWriter out = new BufferedWriter(new FileWriter(output));
 
+            while (partscan.hasNextLine()) {
+                String record = partscan.nextLine();
+                String[] token = record.split(",");
+                User tmp = new User(token);
+                users.add(tmp);
+            }
+            partscan.close();
+
+            List<User> resultUserList = users.stream().filter(line->line.getAmount()>50).collect(Collectors.toList());
+            resultUserList.stream().map(line -> line.printInfo()).forEach(line -> writeToFile(out,line));
+            out.close();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    private void writeToFile(BufferedWriter out, String line) {
+        try {
+           out.write(line+"\n");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

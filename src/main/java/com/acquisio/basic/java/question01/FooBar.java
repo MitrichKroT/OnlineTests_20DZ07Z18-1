@@ -21,6 +21,14 @@ public class FooBar {
     }
 
     private void fizzBuzz(int maxValue) {
-        // TODO: Insert your code here
+        for (int i=0;i<=maxValue;i++) {
+            String tmp="";
+            if (i!=0) {
+                if(i%3==0 && i%5==0) { tmp="Foo & Bar";}
+                else if (i%3==0)tmp="Foo";
+                else if (i%5==0) tmp="Bar";
+            }
+            System.out.println("value "+i+ "= >"+ tmp);
+        }
     }
 }

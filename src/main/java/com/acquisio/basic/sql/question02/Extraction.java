@@ -48,9 +48,16 @@ public class Extraction {
 //            H2DBUtil.displayTableRows(conn, "employees_projects");
             // End : For consultation only, can be removed
 
-            // TODO: Insert query here
             // See requirement in this class javadoc
-            String query = "select 1 as dummyValue from dual";
+            String query = "\n" +
+                    "SELECT \n" +
+                    "EMP.first_name as FirstName,\n" +
+                    "EMP.last_name AS LastName,\n" +
+                    "DEP.name AS DepartmentName\n" +
+                    "FROM employees AS EMP\n" +
+                    "LEFT OUTER JOIN employees_projects AS PRJ ON PRJ.employee_id=EMP.id\n" +
+                    "LEFT OUTER JOIN departments AS DEP ON DEP.id = EMP.department_id\n" +
+                    "WHERE PRJ.project_id IS NULL";
             
             ResultSet resultSet = conn.createStatement().executeQuery(query);
             H2DBUtil.displayResultSet(resultSet);
